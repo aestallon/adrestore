@@ -1,1 +1,4 @@
 rootProject.name = 'adrestore'
+
+include 'adrestore-be-spring'
+project(':adrestore-be-spring').projectDir = file('be-spring')

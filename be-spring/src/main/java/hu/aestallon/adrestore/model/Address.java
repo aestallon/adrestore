@@ -10,9 +10,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 
@@ -30,9 +27,13 @@ public class Address {
   private Integer id;
 
   @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
-  private List<AddressItem> items = new ArrayList<>();
+  private List<AddressItem> items;
 
   public Address items(List<AddressItem> items) {
+    if (this.items == null) {
+      this.items = new ArrayList<>();
+    }
+
     for (var item : items) {
       this.items.add(item);
       item.setAddress(this);
@@ -96,38 +97,23 @@ public class Address {
   }
 
   public Address mergeWithDto(AddressDetail addressDetail) {
-    final Address a2 = Address.fromDto(addressDetail);
-
-    this.mergeProperty(AddressItemKind.COUNTRY, addressDetail.getCountry());
-    this.mergeProperty(AddressItemKind.TOWN, addressDetail.getTown());
-    this.mergeProperty(AddressItemKind.COUNTRY, addressDetail.getCountry());
-    this.mergeProperty(AddressItemKind.STREET_NAME, a2.items.stream()
-        .filter(i -> AddressItemKind.STREET_NAME == i.getKind())
-        .findFirst()
-        .map(AddressItem::getValue)
-        .orElse(null));
-    this.mergeProperty(AddressItemKind.STREET_TYPE, a2.items.stream()
-        .filter(i -> AddressItemKind.STREET_TYPE == i.getKind())
-        .findFirst()
-        .map(AddressItem::getValue)
-        .orElse(null));
-    this.mergeProperty(AddressItemKind.STREET_NUM, addressDetail.getStreetNo());
-
+    var valuesToMerge = Address.fromDto(addressDetail).itemsByKind();
+    valuesToMerge.forEach(this::mergeProperty);
     return this;
   }
 
-  private void mergeProperty( AddressItemKind kind, Object newValue) {
+  private void mergeProperty(AddressItemKind kind, String newValue) {
     this.items.stream().filter(i -> kind == i.getKind())
         .findFirst()
         .ifPresentOrElse(
-            i -> i.setValue(String.valueOf(newValue)),
+            i -> i.setValue(newValue),
             () -> {
-              if (newValue == null || String.valueOf(newValue).isBlank()) {
+              if (newValue == null || newValue.isBlank()) {
                 return;
               }
               this.items(List.of(AddressItem.builder()
                   .kind(kind)
-                  .value(String.valueOf(newValue))
+                  .value(newValue)
                   .build()));
             }
         );
