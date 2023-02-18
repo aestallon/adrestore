@@ -1,5 +1,8 @@
 package hu.aestallon.adrestore.model;
 
+import hu.aestallon.adrestore.rest.model.AddressDetail;
+import hu.aestallon.adrestore.rest.model.PersonDetail;
+import hu.aestallon.adrestore.rest.model.PersonPreview;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,4 +35,35 @@ public class Person {
   @ManyToOne
   @JoinColumn(name = "permanent_address_id")
   private Address permanentAddress;
+
+  public static Person fromDto(PersonDetail personDetail) {
+    return new Person(
+        personDetail.getId(),
+        personDetail.getFirstName(),
+        personDetail.getLastName(),
+        Address.fromDto(personDetail.getPermanentAddress()),
+        Address.fromDto(personDetail.getTemporaryAddress()));
+  }
+
+  public PersonPreview toPreview() {
+    final String fullname = this.firstName + this.lastName;
+    return new PersonPreview()
+        .id(this.id)
+        .name(fullname);
+  }
+
+  public PersonDetail toDetail() {
+    return new PersonDetail()
+        .id(this.id)
+        .firstName(this.firstName)
+        .lastName(this.lastName)
+        .permanentAddress(initAddressDetail(this.permanentAddress))
+        .temporaryAddress(initAddressDetail(this.temporaryAddress));
+  }
+
+  private static AddressDetail initAddressDetail(Address a) {
+    return (a != null)
+        ? a.toDto()
+        : new AddressDetail();
+  }
 }

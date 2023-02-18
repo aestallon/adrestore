@@ -8,6 +8,7 @@ package hu.aestallon.adrestore.rest.api;
 import hu.aestallon.adrestore.rest.model.PersonAddressUpdate;
 import hu.aestallon.adrestore.rest.model.PersonDetail;
 import hu.aestallon.adrestore.rest.model.PersonNameUpdate;
+import hu.aestallon.adrestore.rest.model.PersonPreview;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -99,7 +100,7 @@ public interface PersonsApi {
         summary = "Retrieve all persons",
         responses = {
             @ApiResponse(responseCode = "200", description = "A list of persons", content = {
-                @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDetail.class))
+                @Content(mediaType = "application/json", schema = @Schema(implementation = PersonPreview.class))
             })
         }
     )
@@ -108,7 +109,7 @@ public interface PersonsApi {
         value = "/persons",
         produces = { "application/json" }
     )
-    default ResponseEntity<List<PersonDetail>> getAllPersons(
+    default ResponseEntity<List<PersonPreview>> getAllPersons(
         
     ) {
         return getDelegate().getAllPersons();

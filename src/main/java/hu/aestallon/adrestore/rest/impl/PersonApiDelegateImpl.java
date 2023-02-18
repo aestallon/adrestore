@@ -4,6 +4,7 @@ import hu.aestallon.adrestore.rest.api.PersonsApiDelegate;
 import hu.aestallon.adrestore.rest.model.PersonAddressUpdate;
 import hu.aestallon.adrestore.rest.model.PersonDetail;
 import hu.aestallon.adrestore.rest.model.PersonNameUpdate;
+import hu.aestallon.adrestore.rest.model.PersonPreview;
 import hu.aestallon.adrestore.service.PersonService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -31,7 +32,7 @@ public class PersonApiDelegateImpl implements PersonsApiDelegate {
   }
 
   @Override
-  public ResponseEntity<List<PersonDetail>> getAllPersons() {
+  public ResponseEntity<List<PersonPreview>> getAllPersons() {
     return ResponseEntity.ok(personService.findAll());
   }
 

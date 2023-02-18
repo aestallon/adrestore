@@ -23,7 +23,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/PersonDetail'
+                  $ref: '#/components/schemas/PersonPreview'
     post:
       summary: Create a new person
       operationId: createPerson
@@ -136,6 +136,7 @@ components:
           format: int32
         name:
           type: string
+
     PersonDetail:
       type: object
       properties:
@@ -150,9 +151,13 @@ components:
           $ref: '#/components/schemas/AddressDetail'
         temporaryAddress:
           $ref: '#/components/schemas/AddressDetail'
+
     AddressDetail:
       type: object
       properties:
+        id:
+          type: integer
+          format: int32
         country:
           type: string
         town:

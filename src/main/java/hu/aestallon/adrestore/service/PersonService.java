@@ -2,6 +2,7 @@ package hu.aestallon.adrestore.service;
 
 import hu.aestallon.adrestore.rest.model.AddressDetail;
 import hu.aestallon.adrestore.rest.model.PersonDetail;
+import hu.aestallon.adrestore.rest.model.PersonPreview;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +13,7 @@ public interface PersonService {
 
   void delete(int id);
 
-  List<PersonDetail> findAll();
+  List<PersonPreview> findAll();
 
   Optional<PersonDetail> findById(int id);
 

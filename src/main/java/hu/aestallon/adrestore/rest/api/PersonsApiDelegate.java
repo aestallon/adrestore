@@ -3,6 +3,7 @@ package hu.aestallon.adrestore.rest.api;
 import hu.aestallon.adrestore.rest.model.PersonAddressUpdate;
 import hu.aestallon.adrestore.rest.model.PersonDetail;
 import hu.aestallon.adrestore.rest.model.PersonNameUpdate;
+import hu.aestallon.adrestore.rest.model.PersonPreview;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public interface PersonsApiDelegate {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"firstName\" : \"firstName\", \"lastName\" : \"lastName\", \"temporaryAddress\" : { \"country\" : \"country\", \"town\" : \"town\", \"streetNo\" : 6, \"street\" : \"street\" }, \"id\" : 0, \"permanentAddress\" : { \"country\" : \"country\", \"town\" : \"town\", \"streetNo\" : 6, \"street\" : \"street\" } }";
+                    String exampleString = "{ \"firstName\" : \"firstName\", \"lastName\" : \"lastName\", \"temporaryAddress\" : { \"country\" : \"country\", \"town\" : \"town\", \"streetNo\" : 1, \"street\" : \"street\", \"id\" : 6 }, \"id\" : 0, \"permanentAddress\" : { \"country\" : \"country\", \"town\" : \"town\", \"streetNo\" : 1, \"street\" : \"street\", \"id\" : 6 } }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -64,11 +65,11 @@ public interface PersonsApiDelegate {
      * @return A list of persons (status code 200)
      * @see PersonsApi#getAllPersons
      */
-    default ResponseEntity<List<PersonDetail>> getAllPersons() {
+    default ResponseEntity<List<PersonPreview>> getAllPersons() {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"firstName\" : \"firstName\", \"lastName\" : \"lastName\", \"temporaryAddress\" : { \"country\" : \"country\", \"town\" : \"town\", \"streetNo\" : 6, \"street\" : \"street\" }, \"id\" : 0, \"permanentAddress\" : { \"country\" : \"country\", \"town\" : \"town\", \"streetNo\" : 6, \"street\" : \"street\" } }";
+                    String exampleString = "{ \"name\" : \"name\", \"id\" : 0 }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -89,7 +90,7 @@ public interface PersonsApiDelegate {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"firstName\" : \"firstName\", \"lastName\" : \"lastName\", \"temporaryAddress\" : { \"country\" : \"country\", \"town\" : \"town\", \"streetNo\" : 6, \"street\" : \"street\" }, \"id\" : 0, \"permanentAddress\" : { \"country\" : \"country\", \"town\" : \"town\", \"streetNo\" : 6, \"street\" : \"street\" } }";
+                    String exampleString = "{ \"firstName\" : \"firstName\", \"lastName\" : \"lastName\", \"temporaryAddress\" : { \"country\" : \"country\", \"town\" : \"town\", \"streetNo\" : 1, \"street\" : \"street\", \"id\" : 6 }, \"id\" : 0, \"permanentAddress\" : { \"country\" : \"country\", \"town\" : \"town\", \"streetNo\" : 1, \"street\" : \"street\", \"id\" : 6 } }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -112,7 +113,7 @@ public interface PersonsApiDelegate {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"firstName\" : \"firstName\", \"lastName\" : \"lastName\", \"temporaryAddress\" : { \"country\" : \"country\", \"town\" : \"town\", \"streetNo\" : 6, \"street\" : \"street\" }, \"id\" : 0, \"permanentAddress\" : { \"country\" : \"country\", \"town\" : \"town\", \"streetNo\" : 6, \"street\" : \"street\" } }";
+                    String exampleString = "{ \"firstName\" : \"firstName\", \"lastName\" : \"lastName\", \"temporaryAddress\" : { \"country\" : \"country\", \"town\" : \"town\", \"streetNo\" : 1, \"street\" : \"street\", \"id\" : 6 }, \"id\" : 0, \"permanentAddress\" : { \"country\" : \"country\", \"town\" : \"town\", \"streetNo\" : 1, \"street\" : \"street\", \"id\" : 6 } }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -135,7 +136,7 @@ public interface PersonsApiDelegate {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"firstName\" : \"firstName\", \"lastName\" : \"lastName\", \"temporaryAddress\" : { \"country\" : \"country\", \"town\" : \"town\", \"streetNo\" : 6, \"street\" : \"street\" }, \"id\" : 0, \"permanentAddress\" : { \"country\" : \"country\", \"town\" : \"town\", \"streetNo\" : 6, \"street\" : \"street\" } }";
+                    String exampleString = "{ \"firstName\" : \"firstName\", \"lastName\" : \"lastName\", \"temporaryAddress\" : { \"country\" : \"country\", \"town\" : \"town\", \"streetNo\" : 1, \"street\" : \"street\", \"id\" : 6 }, \"id\" : 0, \"permanentAddress\" : { \"country\" : \"country\", \"town\" : \"town\", \"streetNo\" : 1, \"street\" : \"street\", \"id\" : 6 } }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

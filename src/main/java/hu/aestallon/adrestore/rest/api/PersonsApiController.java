@@ -3,6 +3,7 @@ package hu.aestallon.adrestore.rest.api;
 import hu.aestallon.adrestore.rest.model.PersonAddressUpdate;
 import hu.aestallon.adrestore.rest.model.PersonDetail;
 import hu.aestallon.adrestore.rest.model.PersonNameUpdate;
+import hu.aestallon.adrestore.rest.model.PersonPreview;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

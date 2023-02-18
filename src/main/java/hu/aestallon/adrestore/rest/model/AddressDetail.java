@@ -21,6 +21,9 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class AddressDetail {
 
+  @JsonProperty("id")
+  private Integer id;
+
   @JsonProperty("country")
   private String country;
 
@@ -32,6 +35,25 @@ public class AddressDetail {
 
   @JsonProperty("streetNo")
   private Integer streetNo;
+
+  public AddressDetail id(Integer id) {
+    this.id = id;
+    return this;
+  }
+
+  /**
+   * Get id
+   * @return id
+  */
+  
+  @Schema(name = "id", required = false)
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
   public AddressDetail country(String country) {
     this.country = country;
@@ -118,7 +140,8 @@ public class AddressDetail {
       return false;
     }
     AddressDetail addressDetail = (AddressDetail) o;
-    return Objects.equals(this.country, addressDetail.country) &&
+    return Objects.equals(this.id, addressDetail.id) &&
+        Objects.equals(this.country, addressDetail.country) &&
         Objects.equals(this.town, addressDetail.town) &&
         Objects.equals(this.street, addressDetail.street) &&
         Objects.equals(this.streetNo, addressDetail.streetNo);
@@ -126,13 +149,14 @@ public class AddressDetail {
 
   @Override
   public int hashCode() {
-    return Objects.hash(country, town, street, streetNo);
+    return Objects.hash(id, country, town, street, streetNo);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AddressDetail {\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    country: ").append(toIndentedString(country)).append("\n");
     sb.append("    town: ").append(toIndentedString(town)).append("\n");
     sb.append("    street: ").append(toIndentedString(street)).append("\n");
