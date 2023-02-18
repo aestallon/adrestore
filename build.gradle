@@ -32,6 +32,13 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation 'io.swagger.core.v3:swagger-annotations:2.2.6'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:2.7.1'
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.4'
+//    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.0'
+//    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+//    implementation 'org.openapitools:jackson-databind-nullable:0.2.4'
 }
 
 tasks.named('test') {
@@ -40,11 +47,10 @@ tasks.named('test') {
 
 openApiGenerate {
     generatorName   = "spring"
-    inputSpec       = "$rootDir/src/main/resources/giannitsa.yaml".toString()
+    inputSpec       = "$rootDir/src/main/resources/adrestore.yaml".toString()
     outputDir       = "$rootDir".toString()
-    apiPackage      = "hu.aestallon.giannitsa.rest.api"
-    modelPackage    = "hu.aestallon.giannitsa.rest.model"
-    modelNameSuffix = "Dto"
+    apiPackage      = "hu.aestallon.adrestore.rest.api"
+    modelPackage    = "hu.aestallon.adrestore.rest.model"
     configOptions   = [
             dateLibrary          : "java8",
             delegatePattern      : "true",

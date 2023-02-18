@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
-  title: Exercise Address Store API
-  description: To-Do
+  title: AdreStore API
+  description: A simple CRUD API for an example Address Store
   contact:
     name: Szabolcs Bazil Papp
     email: papp.szabolcs.bazil@gmail.com
