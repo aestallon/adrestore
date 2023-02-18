@@ -62,6 +62,7 @@ paths:
                 $ref: '#/components/schemas/PersonDetail'
     put:
       summary: Update a person's name
+      operationId: updatePersonName
       parameters:
         - in: path
           name: personId
@@ -98,23 +99,18 @@ paths:
       responses:
         '204':
           description: The person was successfully deleted
-  /persons/{id}/addresses:
+  /persons/{personId}/addresses:
     put:
       summary: Update a person's addresses
+      operationId: updatePersonAddress
       parameters:
         - in: path
-          name: id
+          name: personId
           required: true
           description: ID of the person to update
           schema:
             type: integer
             format: int32
-        - in: header
-          name: Authorization
-          description: Bearer token for authentication
-          required: true
-          schema:
-            type: string
       requestBody:
         description: Updated addresses of the person
         required: true

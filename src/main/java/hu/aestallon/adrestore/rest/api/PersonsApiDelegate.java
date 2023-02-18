@@ -100,16 +100,14 @@ public interface PersonsApiDelegate {
     }
 
     /**
-     * PUT /persons/{id}/addresses : Update a person&#39;s addresses
+     * PUT /persons/{personId}/addresses : Update a person&#39;s addresses
      *
-     * @param id ID of the person to update (required)
-     * @param authorization Bearer token for authentication (required)
+     * @param personId ID of the person to update (required)
      * @param personAddressUpdate Updated addresses of the person (required)
      * @return Person addresses updated successfully (status code 200)
-     * @see PersonsApi#personsIdAddressesPut
+     * @see PersonsApi#updatePersonAddress
      */
-    default ResponseEntity<PersonDetail> personsIdAddressesPut(Integer id,
-        String authorization,
+    default ResponseEntity<PersonDetail> updatePersonAddress(Integer personId,
         PersonAddressUpdate personAddressUpdate) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
@@ -130,9 +128,9 @@ public interface PersonsApiDelegate {
      * @param personId ID of the person to update (required)
      * @param personNameUpdate Updated name of the person (required)
      * @return Person name updated successfully (status code 200)
-     * @see PersonsApi#personsPersonIdPut
+     * @see PersonsApi#updatePersonName
      */
-    default ResponseEntity<PersonDetail> personsPersonIdPut(Integer personId,
+    default ResponseEntity<PersonDetail> updatePersonName(Integer personId,
         PersonNameUpdate personNameUpdate) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {

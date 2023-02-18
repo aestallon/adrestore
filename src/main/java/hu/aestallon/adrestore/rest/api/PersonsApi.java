@@ -143,15 +143,14 @@ public interface PersonsApi {
 
 
     /**
-     * PUT /persons/{id}/addresses : Update a person&#39;s addresses
+     * PUT /persons/{personId}/addresses : Update a person&#39;s addresses
      *
-     * @param id ID of the person to update (required)
-     * @param authorization Bearer token for authentication (required)
+     * @param personId ID of the person to update (required)
      * @param personAddressUpdate Updated addresses of the person (required)
      * @return Person addresses updated successfully (status code 200)
      */
     @Operation(
-        operationId = "personsIdAddressesPut",
+        operationId = "updatePersonAddress",
         summary = "Update a person's addresses",
         responses = {
             @ApiResponse(responseCode = "200", description = "Person addresses updated successfully", content = {
@@ -161,16 +160,15 @@ public interface PersonsApi {
     )
     @RequestMapping(
         method = RequestMethod.PUT,
-        value = "/persons/{id}/addresses",
+        value = "/persons/{personId}/addresses",
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<PersonDetail> personsIdAddressesPut(
-        @Parameter(name = "id", description = "ID of the person to update", required = true) @PathVariable("id") Integer id,
-        @NotNull @Parameter(name = "Authorization", description = "Bearer token for authentication", required = true) @RequestHeader(value = "Authorization", required = true) String authorization,
+    default ResponseEntity<PersonDetail> updatePersonAddress(
+        @Parameter(name = "personId", description = "ID of the person to update", required = true) @PathVariable("personId") Integer personId,
         @Parameter(name = "PersonAddressUpdate", description = "Updated addresses of the person", required = true) @Valid @RequestBody PersonAddressUpdate personAddressUpdate
     ) {
-        return getDelegate().personsIdAddressesPut(id, authorization, personAddressUpdate);
+        return getDelegate().updatePersonAddress(personId, personAddressUpdate);
     }
 
 
@@ -182,7 +180,7 @@ public interface PersonsApi {
      * @return Person name updated successfully (status code 200)
      */
     @Operation(
-        operationId = "personsPersonIdPut",
+        operationId = "updatePersonName",
         summary = "Update a person's name",
         responses = {
             @ApiResponse(responseCode = "200", description = "Person name updated successfully", content = {
@@ -196,11 +194,11 @@ public interface PersonsApi {
         produces = { "application/json" },
         consumes = { "application/json" }
     )
-    default ResponseEntity<PersonDetail> personsPersonIdPut(
+    default ResponseEntity<PersonDetail> updatePersonName(
         @Parameter(name = "personId", description = "ID of the person to update", required = true) @PathVariable("personId") Integer personId,
         @Parameter(name = "PersonNameUpdate", description = "Updated name of the person", required = true) @Valid @RequestBody PersonNameUpdate personNameUpdate
     ) {
-        return getDelegate().personsPersonIdPut(personId, personNameUpdate);
+        return getDelegate().updatePersonName(personId, personNameUpdate);
     }
 
 }
