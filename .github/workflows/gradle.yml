@@ -34,4 +34,4 @@ jobs:
       with:
         node-version: 16.x
     - name: Build with Gradle
-      run: 'cd be-spring; ../gradlew build'
+      run: ./gradlew build
