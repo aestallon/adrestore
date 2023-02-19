@@ -39,7 +39,7 @@
     </div>
 
     <div class="personDetailContainer" *ngIf="detailedPerson">
-        <app-person></app-person>
+        <app-person [personDetail]="detailedPerson" (deletePersonEvent)="deletePerson($event)"></app-person>
     </div>
     
 </div>

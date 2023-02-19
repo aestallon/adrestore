@@ -1,7 +1,9 @@
-<div class="personCardContainer">
-    <mat-card>
-        <mat-card-content class="mat-h2">
+<mat-card>
+    <mat-card-content class="personCardContent, mat-h2">
+        <div class="personCardName">
             {{ personPreview!.name }}
+        </div>
+        <div class="personCardButtons">
             <button mat-raised-button color="primary" (click)="selectPerson()">
                 Open
                 <mat-icon>edit</mat-icon>
@@ -10,6 +12,6 @@
                 Delete
                 <mat-icon>delete</mat-icon>
             </button>
-        </mat-card-content>
-    </mat-card>
-</div>
+        </div>
+    </mat-card-content>
+</mat-card>

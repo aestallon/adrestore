@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { PersonDetail } from 'src/app/api/adrestore';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { PersonDetail, PersonService } from 'src/app/api/adrestore';
 
 @Component({
   selector: 'app-person',
@@ -8,21 +9,41 @@ import { PersonDetail } from 'src/app/api/adrestore';
 })
 export class PersonComponent implements OnInit {
 
-  personDetail?: PersonDetail;
-  constructor() { }
+  @Input() personDetail?: PersonDetail;
+  @Output() deletePersonEvent = new EventEmitter<number>();
+
+  permanentCountry?: FormControl;
+  permanentTown?: FormControl;
+  permanentStreet?: FormControl;
+  permanentStrNum?: FormControl;
+
+  constructor(private service: PersonService) { }
 
   ngOnInit(): void {
-    this.personDetail = {
-      id: 1,
-      firstName: 'John',
-      lastName: 'Doe',
-      permanentAddress: {
+  }
 
-      },
-      temporaryAddress: {
+  canSave(): boolean {
+    return this.personDetail != null && this.personDetail != undefined;
+  }
 
-      }
+  async saveAddressData(): Promise<void> {
+    if (this.personDetail) {
+      this.service.updatePersonAddress(
+        this.personDetail.id!,
+        {
+          permanentAddress: this.personDetail.permanentAddress!,
+          temporaryAddress: this.personDetail.temporaryAddress!
+        }
+      );
     }
   }
+
+  async deletePerson(): Promise<void> {
+    let personId = this.personDetail?.id!;
+    this.personDetail = undefined;
+    this.deletePersonEvent.emit(personId);
+  }
+
+
 
 }

@@ -1,3 +1,17 @@
-.personCardContainer {
-    padding:  10 10 10 10 rem;
+.personCardContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.personCardName {
+    display: flex;
+    align-self: flex-start;
+}
+
+.personCardButtons {
+    display: flex;
+    gap: 5 rem;
+    flex-direction: row;
+    align-self: flex-end;
+    align-items: flex-end;
 }

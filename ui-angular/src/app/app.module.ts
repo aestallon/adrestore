@@ -12,8 +12,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ApiModule, APIS, Configuration, ConfigurationParameters, PersonService } from './api/adrestore';
+import { ApiModule, Configuration, ConfigurationParameters } from './api/adrestore';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 
 export function apiConfigFactory(): Configuration {
@@ -40,7 +41,8 @@ export function apiConfigFactory(): Configuration {
     MatFormFieldModule,
     MatInputModule,
     ApiModule.forRoot(apiConfigFactory),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

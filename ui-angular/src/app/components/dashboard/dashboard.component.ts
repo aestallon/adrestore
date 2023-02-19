@@ -26,21 +26,45 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    //await this.loadPeople();
     this.persons = [
       {
         id: 1,
-        name: "Tester 01"
+        name: 'John Doe'
       },
       {
         id: 2,
-        name: "Tester 02"
+        name: 'John With Very Long Name'
       },
       {
         id: 3,
-        name: "Tester 03"
+        name: 'Xi Lao'
+      },
+      {
+        id: 4,
+        name: 'Francis Buttfoukis'
       }
-    ]
+    ];
+    this.detailedPerson = {
+      id: 1,
+      firstName: 'John',
+      lastName: 'Doe',
+      permanentAddress: {
+        id: 20,
+        country: 'Hungary',
+        town: 'Budapest',
+        street: 'Hegyalja út',
+        streetNo: 69
+      },
+      temporaryAddress: {
+        id: 20,
+        country: 'Hungary',
+        town: 'Budapest',
+        street: 'Hegyalja út',
+        streetNo: 69
+      }
+    }
   }
 
   async loadPeople(): Promise<void> {
@@ -69,6 +93,9 @@ export class DashboardComponent implements OnInit {
   }
 
   async deletePerson(personId: number) {
+    if (this.detailedPerson && this.detailedPerson.id! === personId) {
+      this.detailedPerson = undefined;
+    }
     await this.service.deletePerson(personId).toPromise();
   }
 
