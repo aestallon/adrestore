@@ -33,6 +33,5 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 16.x
-        cache: 'gradle'
     - name: Build with Gradle
       run: 'cd be-spring; ../gradlew build'
