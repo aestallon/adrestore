@@ -97,6 +97,7 @@ export class DashboardComponent implements OnInit {
       this.detailedPerson = undefined;
     }
     await this.service.deletePerson(personId).toPromise();
+    await this.loadPeople();
   }
 
 }
