@@ -46,10 +46,10 @@ public class Person {
   }
 
   public PersonPreview toPreview() {
-    final String fullname = this.firstName + this.lastName;
+    final String fullName = this.firstName + " " + this.lastName;
     return new PersonPreview()
         .id(this.id)
-        .name(fullname);
+        .name(fullName);
   }
 
   public PersonDetail toDetail() {
