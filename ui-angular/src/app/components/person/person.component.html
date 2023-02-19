@@ -24,14 +24,14 @@
                 <mat-hint>Your hometown</mat-hint>
             </mat-form-field>
             <div class="streetInfoContainer">
-                <mat-form-field appearance="outline" type="text" [(ngModel)]="personDetail?.permanentAddress!.street">
+                <mat-form-field appearance="outline">
                     <mat-label>Street</mat-label>
-                    <input matInput placeholder="e.g. Main Street">
+                    <input matInput placeholder="e.g. Main Street" type="text" [(ngModel)]="personDetail?.permanentAddress!.street">
                     <mat-hint>Primary address!</mat-hint>
                 </mat-form-field>
-                <mat-form-field appearance="outline" type="number" [(ngModel)]="personDetail?.permanentAddress!.streetNo">
+                <mat-form-field appearance="outline">
                     <mat-label>No.</mat-label>
-                    <input matInput placeholder="e.g. 69">
+                    <input matInput placeholder="e.g. 69" type="number" [(ngModel)]="personDetail?.permanentAddress!.streetNo">
                     <mat-hint>House number</mat-hint>
                 </mat-form-field>
             </div>
