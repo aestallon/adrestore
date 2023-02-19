@@ -10,6 +10,8 @@ import hu.aestallon.adrestore.rest.model.AddressDetail;
 import hu.aestallon.adrestore.rest.model.PersonDetail;
 import hu.aestallon.adrestore.rest.model.PersonPreview;
 import hu.aestallon.adrestore.service.PersonService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.Optional;
 
 @Service
 public class PersonServiceImpl implements PersonService {
+
+  private static final Logger log = LoggerFactory.getLogger(PersonServiceImpl.class);
 
   private final PersonRepository  personRepository;
   private final AddressRepository addressRepository;
@@ -28,9 +32,9 @@ public class PersonServiceImpl implements PersonService {
 
   @Override
   public PersonDetail create(PersonDetail p) {
-    if (p.getTemporaryAddress() != null || p.getPermanentAddress() != null) {
-      throw new IllegalArgumentException("Cannot create Person with address!");
-    }
+    p.setTemporaryAddress(null);
+    p.setPermanentAddress(null);
+
     Person person = Person.fromDto(p);
     Person savedPerson = personRepository.save(person);
     return savedPerson.toDetail();

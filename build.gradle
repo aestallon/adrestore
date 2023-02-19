@@ -3,7 +3,7 @@
  }
 
  subprojects {
-     if (it.name != 'adrestore-be-spring') {
+     if (it.name != 'adrestore-ui-spring') {
          group = 'hu.aestallon'
          version = '0.0.2'
 

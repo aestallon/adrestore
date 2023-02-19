@@ -2,3 +2,6 @@ rootProject.name = 'adrestore'
 
 include 'adrestore-be-spring'
 project(':adrestore-be-spring').projectDir = file('be-spring')
+
+include 'adrestore-ui-angular'
+project(':adrestore-ui-angular').projectDir = file('ui-angular')

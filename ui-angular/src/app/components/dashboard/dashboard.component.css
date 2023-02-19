@@ -1,0 +1,24 @@
+.dashboardContainer {
+    display: flex;
+    flex-direction: row;
+    flex: auto;
+    justify-content: flex-start;
+}
+
+.personListContainer {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.placeholderContainer {
+    display: flex;
+    flex: 2;
+}
+
+.personDetailContainer {
+    display: flex;
+    flex: 2;
+    align-self: flex-start;
+}
