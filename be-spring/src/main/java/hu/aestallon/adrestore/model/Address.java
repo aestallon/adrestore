@@ -42,6 +42,10 @@ public class Address {
   }
 
   public static Address fromDto(AddressDetail addressDetail) {
+    if (addressDetail == null) {
+      return null;
+    }
+
     final String street = addressDetail.getStreet();
     final int lastSpace = street.lastIndexOf(' ');
 

@@ -47,6 +47,7 @@ public interface PersonsApi {
     @Operation(
         operationId = "createPerson",
         summary = "Create a new person",
+        tags = { "Person" },
         responses = {
             @ApiResponse(responseCode = "201", description = "The created person", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDetail.class))
@@ -75,6 +76,7 @@ public interface PersonsApi {
     @Operation(
         operationId = "deletePerson",
         summary = "Delete a person by ID",
+        tags = { "Person" },
         responses = {
             @ApiResponse(responseCode = "204", description = "The person was successfully deleted")
         }
@@ -98,6 +100,7 @@ public interface PersonsApi {
     @Operation(
         operationId = "getAllPersons",
         summary = "Retrieve all persons",
+        tags = { "Person" },
         responses = {
             @ApiResponse(responseCode = "200", description = "A list of persons", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = PersonPreview.class))
@@ -125,6 +128,7 @@ public interface PersonsApi {
     @Operation(
         operationId = "getPersonById",
         summary = "Retrieve a person by ID",
+        tags = { "Person" },
         responses = {
             @ApiResponse(responseCode = "200", description = "The requested person", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDetail.class))
@@ -153,6 +157,7 @@ public interface PersonsApi {
     @Operation(
         operationId = "updatePersonAddress",
         summary = "Update a person's addresses",
+        tags = { "Person" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Person addresses updated successfully", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDetail.class))
@@ -183,6 +188,7 @@ public interface PersonsApi {
     @Operation(
         operationId = "updatePersonName",
         summary = "Update a person's name",
+        tags = { "Person" },
         responses = {
             @ApiResponse(responseCode = "200", description = "Person name updated successfully", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = PersonDetail.class))
