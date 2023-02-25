@@ -46,12 +46,10 @@ public class PersonApiDelegateImpl implements PersonsApiDelegate {
   @Override
   public ResponseEntity<PersonDetail> updatePersonAddress(Integer personId,
                                                           PersonAddressUpdate personAddressUpdate) {
-    return personService
-        .updateAddress(
+    return personService.updateAddress(
             personId,
             personAddressUpdate.getPermanentAddress(),
-            personAddressUpdate.getTemporaryAddress()
-        )
+            personAddressUpdate.getTemporaryAddress())
         .map(ResponseEntity::ok)
         .orElseGet(ResponseEntity.notFound()::build);
   }
@@ -62,8 +60,7 @@ public class PersonApiDelegateImpl implements PersonsApiDelegate {
     return personService.updateName(
             personId,
             personNameUpdate.getFirstName(),
-            personNameUpdate.getLastName()
-        )
+            personNameUpdate.getLastName())
         .map(ResponseEntity::ok)
         .orElseGet(ResponseEntity.notFound()::build);
   }

@@ -1,8 +1,6 @@
 package hu.aestallon.adrestore.service.impl;
 
 import hu.aestallon.adrestore.model.Address;
-import hu.aestallon.adrestore.model.AddressItem;
-import hu.aestallon.adrestore.model.AddressItemKind;
 import hu.aestallon.adrestore.model.Person;
 import hu.aestallon.adrestore.repository.AddressRepository;
 import hu.aestallon.adrestore.repository.PersonRepository;
@@ -33,6 +31,7 @@ public class PersonServiceImpl implements PersonService {
 
   @Override
   public PersonDetail create(PersonDetail p) {
+    log.debug("Invoked person create: {}", p);
     p.setTemporaryAddress(null);
     p.setPermanentAddress(null);
 
@@ -43,6 +42,7 @@ public class PersonServiceImpl implements PersonService {
 
   @Override
   public void delete(int id) {
+    log.debug("Invoked person delete {}", id);
     personRepository.deleteById(id);
   }
 
@@ -62,29 +62,15 @@ public class PersonServiceImpl implements PersonService {
   @Override
   public Optional<PersonDetail> updateAddress(int id, AddressDetail permanent,
                                               AddressDetail temporary) {
+    log.debug("Update address invoked, id {}, permanent {} temporary {}", id, permanent, temporary);
     return personRepository.findById(id)
         .map(p -> {
-          Address permanentAddress = p.getPermanentAddress();
-          if (permanentAddress == null && permanent != null) {
-            permanentAddress = Address.fromDto(permanent);
-            permanentAddress = addressRepository.save(permanentAddress);
-            p.setPermanentAddress(permanentAddress);
-          } else if (permanent != null) {
-            permanentAddress = permanentAddress.mergeWithDto(permanent);
-            permanentAddress = addressRepository.save(permanentAddress);
-            p.setPermanentAddress(permanentAddress);
-          }
+          final Address permanentAddress = p.getPermanentAddress();
+          p.setPermanentAddress(this.updateAddress(permanentAddress, permanent));
 
-          Address temporaryAddress = p.getTemporaryAddress();
-          if (temporaryAddress == null && temporary != null) {
-            temporaryAddress = Address.fromDto(temporary);
-            temporaryAddress = addressRepository.save(temporaryAddress);
-            p.setTemporaryAddress(temporaryAddress);
-          } else if (temporary != null) {
-            temporaryAddress = temporaryAddress.mergeWithDto(temporary);
-            temporaryAddress = addressRepository.save(temporaryAddress);
-            p.setTemporaryAddress(temporaryAddress);
-          }
+          final Address temporaryAddress = p.getTemporaryAddress();
+          p.setTemporaryAddress(this.updateAddress(temporaryAddress, temporary));
+
           return personRepository.save(p);
         })
         .map(Person::toDetail);
@@ -100,6 +86,20 @@ public class PersonServiceImpl implements PersonService {
           return personRepository.save(p);
         })
         .map(Person::toDetail);
+  }
+
+  private Address updateAddress(Address original, AddressDetail incoming) {
+    if (incoming == null || this.isEmptyAddressDetail(incoming)) {
+      return original;
+    }
+    final Address address = (original == null)
+        ? Address.fromDto(incoming)
+        : original.mergeWithDto(incoming);
+    return addressRepository.save(address);
+  }
+
+  private boolean isEmptyAddressDetail(AddressDetail addressDetail) {
+    return addressDetail.getCountry() == null && addressDetail.getTown() == null;
   }
 
 }
