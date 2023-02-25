@@ -48,28 +48,15 @@ public class Address {
     }
 
     final Address a = new Address().items(List.of(
-        AddressItem.builder()
-            .kind(AddressItemKind.COUNTRY)
-            .value(addressDetail.getCountry())
+        AddressItem.builder().kind(AddressItemKind.COUNTRY).value(addressDetail.getCountry())
             .build(),
-        AddressItem.builder()
-            .kind(AddressItemKind.TOWN)
-            .value(addressDetail.getTown())
-            .build(),
-        AddressItem.builder()
-            .kind(AddressItemKind.STREET_NAME)
-            .value(streetName)
-            .build(),
-        AddressItem.builder()
-            .kind(AddressItemKind.STREET_NUM)
-            .value(addressDetail.getStreetNo().toString())
-            .build()
-    ));
+        AddressItem.builder().kind(AddressItemKind.TOWN).value(addressDetail.getTown()).build(),
+        AddressItem.builder().kind(AddressItemKind.STREET_NAME).value(streetName).build(),
+        AddressItem.builder().kind(AddressItemKind.STREET_NUM)
+            .value(addressDetail.getStreetNo().toString()).build()));
     if (streetType != null) {
-      a.items(List.of(AddressItem.builder()
-          .kind(AddressItemKind.STREET_TYPE)
-          .value(streetType)
-          .build()));
+      a.items(List.of(
+          AddressItem.builder().kind(AddressItemKind.STREET_TYPE).value(streetType).build()));
     }
     a.setId(addressDetail.getId());
     return a;
@@ -108,28 +95,22 @@ public class Address {
   }
 
   private void mergeProperty(AddressItemKind kind, String newValue) {
-    this.items.stream().filter(i -> kind == i.getKind())
+    this.items.stream()
+        .filter(i -> kind == i.getKind())
         .findFirst()
-        .ifPresentOrElse(
-            i -> i.setValue(newValue),
-            () -> {
-              if (newValue == null || newValue.isBlank()) {
-                return;
-              }
-              this.items(List.of(AddressItem.builder()
-                  .kind(kind)
-                  .value(newValue)
-                  .build()));
-            }
-        );
+        .ifPresentOrElse(i -> i.setValue(newValue), () -> {
+          if (newValue == null || newValue.isBlank()) {
+            return;
+          }
+          this.items(List.of(AddressItem.builder().kind(kind).value(newValue).build()));
+        });
   }
 
   public Map<AddressItemKind, String> itemsByKind() {
     return this.items.stream()
-        .collect(groupingBy(
-            AddressItem::getKind,
-            mapping(AddressItem::getValue, reducing((s1, s2) -> s1))
-        ))
+        .collect(groupingBy(AddressItem::getKind, mapping(
+            AddressItem::getValue,
+            reducing((s1, s2) -> s1))))
         .entrySet().stream()
         .filter(e -> e.getValue().isPresent())
         .map(e -> Map.entry(e.getKey(), e.getValue().get()))

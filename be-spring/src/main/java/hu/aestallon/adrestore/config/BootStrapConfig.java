@@ -7,19 +7,19 @@ import hu.aestallon.adrestore.model.Person;
 import hu.aestallon.adrestore.repository.AddressRepository;
 import hu.aestallon.adrestore.repository.PersonRepository;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
 
-@Configuration
+//@Configuration
+@SuppressWarnings("unused")
 public class BootStrapConfig {
 
-  @Bean
-  CommandLineRunner initDatabase(PersonRepository personRepository, AddressRepository addressRepository) {
+  //@Bean
+  CommandLineRunner initDatabase(PersonRepository personRepository,
+                                 AddressRepository addressRepository) {
     return args -> {
-      List<AddressItem> addressItems= List.of(
+      List<AddressItem> addressItems = List.of(
           AddressItem.builder()
               .kind(AddressItemKind.COUNTRY)
               .value("Hungary")
