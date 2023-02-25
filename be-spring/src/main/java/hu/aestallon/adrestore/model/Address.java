@@ -29,18 +29,6 @@ public class Address {
   @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
   private List<AddressItem> items;
 
-  public Address items(List<AddressItem> items) {
-    if (this.items == null) {
-      this.items = new ArrayList<>();
-    }
-
-    for (var item : items) {
-      this.items.add(item);
-      item.setAddress(this);
-    }
-    return this;
-  }
-
   public static Address fromDto(AddressDetail addressDetail) {
     if (addressDetail == null) {
       return null;
@@ -87,10 +75,23 @@ public class Address {
     return a;
   }
 
+  public Address items(List<AddressItem> items) {
+    if (this.items == null) {
+      this.items = new ArrayList<>();
+    }
+
+    for (var item : items) {
+      this.items.add(item);
+      item.setAddress(this);
+    }
+    return this;
+  }
+
   public AddressDetail toDto() {
     final var itemsByKind = this.itemsByKind();
     final String street = itemsByKind.containsKey(AddressItemKind.STREET_TYPE)
-        ? itemsByKind.get(AddressItemKind.STREET_NAME) + itemsByKind.get(AddressItemKind.STREET_TYPE)
+        ? itemsByKind.get(AddressItemKind.STREET_NAME)
+          + " " + itemsByKind.get(AddressItemKind.STREET_TYPE)
         : itemsByKind.get(AddressItemKind.STREET_NAME);
     return new AddressDetail()
         .id(this.id)
