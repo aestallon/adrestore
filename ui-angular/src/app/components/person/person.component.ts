@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PersonDetail, PersonService } from 'src/app/api/adrestore';
+import { NameFormComponent } from '../name-form/name-form.component';
 
 @Component({
   selector: 'app-person',
@@ -13,8 +15,13 @@ export class PersonComponent implements OnInit {
   @Input() personDetail?: PersonDetail;
   @Output() deletePersonEvent = new EventEmitter<number>();
   @Output() closeEvent = new EventEmitter<void>();
+  @Output() nameChangedEvent = new EventEmitter<void>();
 
-  constructor(private service: PersonService, private saveSnackBar: MatSnackBar) { }
+  constructor(
+    private service: PersonService,
+    private saveSnackBar: MatSnackBar,
+    public nameChangeDialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
   }
@@ -35,9 +42,26 @@ export class PersonComponent implements OnInit {
       ).toPromise();
       this.saveSnackBar.open('Save successful!', undefined, {
         duration: 3_000,
-        
+
       });
     }
+  }
+
+  editName(): void {
+    let dialogRef = this.nameChangeDialog.open(NameFormComponent, {
+      data: {
+        firstName: this.personDetail!.firstName,
+        lastName: this.personDetail!.lastName
+      }
+    });
+    dialogRef.afterClosed().subscribe(async result => {
+      console.log(result);
+      console.log('Dialog closed!');
+      this.personDetail = await this.service
+        .updatePersonName(this.personDetail!.id!, result)
+        .toPromise();
+      this.nameChangedEvent.emit();
+    });
   }
 
   async deletePerson(): Promise<void> {

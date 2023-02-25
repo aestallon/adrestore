@@ -7,7 +7,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    flex-shrink: 1;
+    flex: 1;
 }
 
 .placeholderContainer {
@@ -19,7 +19,7 @@
 .personDetailContainer {
     display: flex;
     flex-direction: column;
-    flex-grow: 2;
+    flex: 2;
 }
 
 .noPersonsPlaceholder {
@@ -34,4 +34,8 @@
     flex-direction: column;
     flex-grow: 1;
     align-items: center;
+}
+
+.dashboardSpacer {
+    flex: 1 1 auto;
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PersonDetail, PersonService } from 'src/app/api/adrestore';
 import { PersonPreview } from 'src/app/api/adrestore/model/personPreview';
+import { NameFormComponent } from '../name-form/name-form.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,21 +12,12 @@ import { PersonPreview } from 'src/app/api/adrestore/model/personPreview';
 export class DashboardComponent implements OnInit {
 
   persons?: PersonPreview[];
-  newPerson: PersonDetail;
   detailedPerson?: PersonDetail;
 
-  constructor(private service: PersonService) {
-    this.newPerson = {
-      firstName: '',
-      lastName: '',
-      permanentAddress: {
-
-      },
-      temporaryAddress: {
-
-      }
-    }
-  }
+  constructor(
+    private service: PersonService,
+    public newPersonDialog: MatDialog
+    ) {}
 
   async ngOnInit(): Promise<void> {
     await this.loadPeople();
@@ -32,32 +25,28 @@ export class DashboardComponent implements OnInit {
   }
 
   async loadPeople(): Promise<void> {
-    let people = await this.service.getAllPersons().toPromise();
-    this.persons = people;
-  }
-
-  setFirstName(value: string): void {
-    console.log("invoked firstname")
-    this.newPerson.firstName = value;
-    console.log(`firstname <== ${value}`)
-  }
-
-  setLastName(value: string): void {
-    this.newPerson.lastName = value;
+    this.persons = await this.service.getAllPersons().toPromise();
   }
 
   async saveNewPerson(): Promise<void> {
-    console.log(this.newPerson);
-    await this.service.createPerson(this.newPerson).toPromise();
-    this.resetNewPersonForm();
-    await this.loadPeople();
-  }
-
-  private resetNewPersonForm(): void {
-    this.newPerson = {
-      firstName: undefined,
-      lastName: undefined
-    };
+    let dialogRef = this.newPersonDialog.open(NameFormComponent, {
+      data: {
+        firstName: '',
+        lastName: ''
+      }
+    });
+    dialogRef.afterClosed().subscribe(async result => {
+      if (!result.firstName || !result.lastName) {
+        return;
+      }
+      await this.service.createPerson({
+        firstName: result.firstName,
+        lastName: result.lastName,
+        permanentAddress: {},
+        temporaryAddress: {},
+      }).toPromise();
+      await this.loadPeople();
+    });
   }
 
   async loadPerson(personId: number) {
@@ -77,6 +66,9 @@ export class DashboardComponent implements OnInit {
   }
 
 
+  /**
+   * Only used to statically initialise the component during development.
+   */
   private staticInit(): void {
     this.persons = [
       {

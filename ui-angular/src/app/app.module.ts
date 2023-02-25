@@ -14,11 +14,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 import { ApiModule, Configuration, ConfigurationParameters } from './api/adrestore';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { AddressFormComponent } from './components/address-form/address-form.component';
+import { NameFormComponent } from './components/name-form/name-form.component';
 
 export function apiConfigFactory(): Configuration {
   const params: ConfigurationParameters = {
@@ -33,7 +35,8 @@ export function apiConfigFactory(): Configuration {
     DashboardComponent,
     PersonComponent,
     PersonCardComponent,
-    AddressFormComponent
+    AddressFormComponent,
+    NameFormComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,7 @@ export function apiConfigFactory(): Configuration {
     MatInputModule,
     MatToolbarModule,
     MatSnackBarModule,
+    MatDialogModule,
     ApiModule.forRoot(apiConfigFactory),
     HttpClientModule,
     FormsModule

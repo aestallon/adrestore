@@ -1,32 +1,17 @@
 <div class="dashboardContainer">
     <div class="personListContainer" *ngIf="persons">
-        <div class="personCardContainer" *ngFor="let personPreview of persons">
+        <mat-toolbar color="accent">
+            <span class="mat-h2, dashboardTitle">People</span>
+            <span class="dashboardSpacer"></span>
+            <button mat-raised-button color="" (click)="saveNewPerson()">
+                Create
+                <mat-icon>add_circle</mat-icon>
+            </button>
+        </mat-toolbar>
+        <div *ngFor="let personPreview of persons">
             <app-person-card [personPreview]="personPreview" (selectPersonEvent)="loadPerson($event)"
                 (deletePersonEvent)="deletePerson($event)">
             </app-person-card>
-        </div>
-        <div class="personCreatorContainer">
-            <mat-card>
-                <mat-card-content>
-                    <mat-card-header>
-                        <mat-card-title class="mat-h1">
-                            Add a new person
-                        </mat-card-title>
-                    </mat-card-header>
-                    <mat-form-field appearance="fill">
-                        <input matInput placeholder="First name" [(ngModel)]="newPerson!.firstName">
-                    </mat-form-field>
-                    <mat-form-field appearance="fill">
-                        <input matInput placeholder="Last name" [(ngModel)]="newPerson!.lastName">
-                    </mat-form-field>
-                </mat-card-content>
-                <mat-card-actions>
-                    <button mat-raised-button color="accent" (click)="saveNewPerson()">
-                        Create
-                        <mat-icon>add_circle</mat-icon>
-                    </button>
-                </mat-card-actions>
-            </mat-card>
         </div>
     </div>
     <div class="noPersonsPlaceholder" *ngIf="!persons">
@@ -38,7 +23,8 @@
 
     <div class="personDetailContainer" *ngIf="detailedPerson">
         <app-person [personDetail]="detailedPerson" (deletePersonEvent)="deletePerson($event)"
-            (closeEvent)="closePerson()"></app-person>
+            (closeEvent)="closePerson()" (nameChangedEvent)="loadPeople()"></app-person>
     </div>
+    <div class="personDetailContainer" *ngIf="!detailedPerson && persons"></div>
 
 </div>

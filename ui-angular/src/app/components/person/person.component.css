@@ -1,7 +1,19 @@
 .controlButtonContainer {
     display: flex;
-    margin-top: 1rem;
-    margin-left: 1rem;
-    align-items: flex-start;
+    flex-direction: row;
+    justify-items: center;
     gap: 1rem;
+}
+
+.spacer {
+    flex: 1;
+}
+.personToolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.nameContainer {
+    justify-self: flex-start;
 }

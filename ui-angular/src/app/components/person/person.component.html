@@ -1,10 +1,23 @@
-<div class="nameContainer">
-    <mat-toolbar color="primary">
-        <span class="mat-h2">
-            {{ personDetail!.firstName }} {{ personDetail!.lastName }}
-        </span>
-    </mat-toolbar>
-</div>
+<mat-toolbar class="personToolbar" color="primary">
+    <div class="mat-h2, nameContainer">
+        {{ personDetail!.firstName }} {{ personDetail!.lastName }}
+    </div>
+    <div class="spacer"></div>
+    <div class="controlButtonContainer">
+        <button mat-raised-button color="primary" [disabled]="!canSave()" (click)="saveAddressData()">
+            Save
+            <mat-icon>save</mat-icon>
+        </button>
+        <button mat-raised-button color="" (click)="editName()">
+            Edit name
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-raised-button color="accent" (click)="close()">
+            Close
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+</mat-toolbar>
 <div class="addressContainer">
     <app-address-form [address]="personDetail!.permanentAddress" [addressType]="'Permanent'" [expandedByDefault]="true">
     </app-address-form>
@@ -13,14 +26,4 @@
     <app-address-form [address]="personDetail!.temporaryAddress" [addressType]="'Temporary'"
         [expandedByDefault]="false">
     </app-address-form>
-</div>
-<div class="controlButtonContainer">
-    <button mat-raised-button color="primary" [disabled]="!canSave()" (click)="saveAddressData()">
-        Save
-        <mat-icon>save</mat-icon>
-    </button>
-    <button mat-raised-button color="accent" (click)="close()">
-        Close
-        <mat-icon>close</mat-icon>
-    </button>
 </div>
