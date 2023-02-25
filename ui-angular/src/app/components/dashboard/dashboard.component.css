@@ -1,24 +1,37 @@
 .dashboardContainer {
     display: flex;
     flex-direction: row;
-    flex: auto;
-    justify-content: flex-start;
 }
 
 .personListContainer {
     display: flex;
-    flex: 1;
     flex-direction: column;
     justify-content: flex-start;
+    flex-shrink: 1;
 }
 
 .placeholderContainer {
     display: flex;
-    flex: 2;
+    flex-direction: column;
+    flex-grow: 2;
 }
 
 .personDetailContainer {
     display: flex;
-    flex: 2;
-    align-self: flex-start;
+    flex-direction: column;
+    flex-grow: 2;
+}
+
+.noPersonsPlaceholder {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.noPersonsPlaceholder mat-card {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
 }

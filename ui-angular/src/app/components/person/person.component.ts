@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { PersonDetail, PersonService } from 'src/app/api/adrestore';
 
 @Component({
@@ -11,13 +12,9 @@ export class PersonComponent implements OnInit {
 
   @Input() personDetail?: PersonDetail;
   @Output() deletePersonEvent = new EventEmitter<number>();
+  @Output() closeEvent = new EventEmitter<void>();
 
-  permanentCountry?: FormControl;
-  permanentTown?: FormControl;
-  permanentStreet?: FormControl;
-  permanentStrNum?: FormControl;
-
-  constructor(private service: PersonService) { }
+  constructor(private service: PersonService, private saveSnackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -28,13 +25,18 @@ export class PersonComponent implements OnInit {
 
   async saveAddressData(): Promise<void> {
     if (this.personDetail) {
-      this.service.updatePersonAddress(
+      console.log(this.personDetail);
+      this.personDetail = await this.service.updatePersonAddress(
         this.personDetail.id!,
         {
           permanentAddress: this.personDetail.permanentAddress!,
           temporaryAddress: this.personDetail.temporaryAddress!
         }
-      );
+      ).toPromise();
+      this.saveSnackBar.open('Save successful!', undefined, {
+        duration: 3_000,
+        
+      });
     }
   }
 
@@ -44,6 +46,8 @@ export class PersonComponent implements OnInit {
     this.deletePersonEvent.emit(personId);
   }
 
-
+  close(): void {
+    this.closeEvent.emit();
+  }
 
 }

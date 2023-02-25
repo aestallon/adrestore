@@ -1,77 +1,26 @@
-<div class="personContainer">
-    <div class="nameContainer">
-        <mat-card>
-            <mat-card-content class="mat-h1" color="accent">
-                {{ personDetail!.firstName }} {{ personDetail!.lastName }}
-            </mat-card-content>
-        </mat-card>
-    </div>
-    <div class="permanentAddressContainer">
-        <mat-expansion-panel [expanded]="true" color="accent">
-            <mat-expansion-panel-header>
-                <mat-panel-title>Permanent Address</mat-panel-title>
-                <mat-panel-description>Address of permanent residency</mat-panel-description>
-            </mat-expansion-panel-header>
-            <p>Review and update your address:</p>
-            <mat-form-field appearance="outline">
-                <mat-label>Country</mat-label>
-                <input matInput placeholder="e.g. Croatia" type="text" [(ngModel)]="personDetail?.permanentAddress!.country">
-                <mat-hint>Your motherland :3</mat-hint>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Town</mat-label>
-                <input matInput placeholder="e.g. Zagreb" type="text" [(ngModel)]="personDetail?.permanentAddress!.town">
-                <mat-hint>Your hometown</mat-hint>
-            </mat-form-field>
-            <div class="streetInfoContainer">
-                <mat-form-field appearance="outline">
-                    <mat-label>Street</mat-label>
-                    <input matInput placeholder="e.g. Main Street" type="text" [(ngModel)]="personDetail?.permanentAddress!.street">
-                    <mat-hint>Primary address!</mat-hint>
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>No.</mat-label>
-                    <input matInput placeholder="e.g. 69" type="number" [(ngModel)]="personDetail?.permanentAddress!.streetNo">
-                    <mat-hint>House number</mat-hint>
-                </mat-form-field>
-            </div>
-        </mat-expansion-panel>
-    </div>
-    <div class="permanentAddressContainer">
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>Temporary Address</mat-panel-title>
-                <mat-panel-description>Address of temporary residency</mat-panel-description>
-            </mat-expansion-panel-header>
-            <p>Review and update your address:</p>
-            <mat-form-field appearance="outline">
-                <mat-label>Country</mat-label>
-                <input matInput placeholder="e.g. Croatia">
-                <mat-hint>Try inputting a real country!</mat-hint>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Town</mat-label>
-                <input matInput placeholder="e.g. Zagreb">
-                <mat-hint>Your hometown</mat-hint>
-            </mat-form-field>
-            <div class="streetInfoContainer">
-                <mat-form-field appearance="outline">
-                    <mat-label>Street</mat-label>
-                    <input matInput placeholder="e.g. Main Street">
-                    <mat-hint>Primary address!</mat-hint>
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>No.</mat-label>
-                    <input matInput placeholder="e.g. 69">
-                    <mat-hint>House number</mat-hint>
-                </mat-form-field>
-            </div>
-        </mat-expansion-panel>
-    </div>
-    <div class="controlButtonContainer">
-        <button mat-raised-button color="primary" [disabled]="!canSave()">
-            Save
-            <mat-icon>save</mat-icon>
-        </button>
-    </div>
+<div class="nameContainer">
+    <mat-toolbar color="primary">
+        <span class="mat-h2">
+            {{ personDetail!.firstName }} {{ personDetail!.lastName }}
+        </span>
+    </mat-toolbar>
+</div>
+<div class="addressContainer">
+    <app-address-form [address]="personDetail!.permanentAddress" [addressType]="'Permanent'" [expandedByDefault]="true">
+    </app-address-form>
+</div>
+<div class="addressContainer">
+    <app-address-form [address]="personDetail!.temporaryAddress" [addressType]="'Temporary'"
+        [expandedByDefault]="false">
+    </app-address-form>
+</div>
+<div class="controlButtonContainer">
+    <button mat-raised-button color="primary" [disabled]="!canSave()" (click)="saveAddressData()">
+        Save
+        <mat-icon>save</mat-icon>
+    </button>
+    <button mat-raised-button color="accent" (click)="close()">
+        Close
+        <mat-icon>close</mat-icon>
+    </button>
 </div>

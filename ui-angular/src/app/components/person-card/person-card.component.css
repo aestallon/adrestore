@@ -1,17 +1,19 @@
 .personCardContent {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-items: baseline;
 }
 
 .personCardName {
     display: flex;
+    flex-direction: row;
     align-self: flex-start;
+    justify-content: flex-start;
 }
 
 .personCardButtons {
     display: flex;
-    gap: 5 rem;
+    gap: 1rem;
     flex-direction: row;
-    align-self: flex-end;
-    align-items: flex-end;
+    justify-content: flex-end;
 }

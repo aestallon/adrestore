@@ -1,0 +1,31 @@
+<mat-expansion-panel [expanded]="expandedByDefault">
+    <mat-expansion-panel-header color="accent">
+        <mat-panel-title>{{addressType}} Address</mat-panel-title>
+        <mat-panel-description>Address of {{addressType}} residency</mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>Review and update your address:</p>
+    <div class="formContainer">
+        <mat-form-field appearance="outline">
+            <mat-label>Country</mat-label>
+            <input matInput placeholder="e.g. Croatia" type="text" [(ngModel)]="address!.country">
+            <mat-hint>Your motherland :3</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Town</mat-label>
+            <input matInput placeholder="e.g. Zagreb" type="text" [(ngModel)]="address!.town">
+            <mat-hint>Your hometown</mat-hint>
+        </mat-form-field>
+        <div class="streetInfoContainer">
+            <mat-form-field appearance="outline">
+                <mat-label>Street</mat-label>
+                <input matInput placeholder="e.g. Main Street" type="text" [(ngModel)]="address!.street">
+                <mat-hint>Primary address!</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>No.</mat-label>
+                <input matInput placeholder="e.g. 69" type="number" [(ngModel)]="address!.streetNo">
+                <mat-hint>House number</mat-hint>
+            </mat-form-field>
+        </div>
+    </div>
+</mat-expansion-panel>

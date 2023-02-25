@@ -27,7 +27,57 @@ export class DashboardComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    //await this.loadPeople();
+    await this.loadPeople();
+    // this.staticInit();
+  }
+
+  async loadPeople(): Promise<void> {
+    let people = await this.service.getAllPersons().toPromise();
+    this.persons = people;
+  }
+
+  setFirstName(value: string): void {
+    console.log("invoked firstname")
+    this.newPerson.firstName = value;
+    console.log(`firstname <== ${value}`)
+  }
+
+  setLastName(value: string): void {
+    this.newPerson.lastName = value;
+  }
+
+  async saveNewPerson(): Promise<void> {
+    console.log(this.newPerson);
+    await this.service.createPerson(this.newPerson).toPromise();
+    this.resetNewPersonForm();
+    await this.loadPeople();
+  }
+
+  private resetNewPersonForm(): void {
+    this.newPerson = {
+      firstName: undefined,
+      lastName: undefined
+    };
+  }
+
+  async loadPerson(personId: number) {
+    this.detailedPerson = await this.service.getPersonById(personId).toPromise();
+  }
+
+  async deletePerson(personId: number) {
+    if (this.detailedPerson && this.detailedPerson.id! === personId) {
+      this.detailedPerson = undefined;
+    }
+    await this.service.deletePerson(personId).toPromise();
+    await this.loadPeople();
+  }
+
+  closePerson() {
+    this.detailedPerson = undefined;
+  }
+
+
+  private staticInit(): void {
     this.persons = [
       {
         id: 1,
@@ -65,39 +115,6 @@ export class DashboardComponent implements OnInit {
         streetNo: 69
       }
     }
-  }
-
-  async loadPeople(): Promise<void> {
-    let people = await this.service.getAllPersons().toPromise();
-    this.persons = people;
-  }
-
-  setFirstName(value: string): void {
-    console.log("invoked firstname")
-    this.newPerson.firstName = value;
-    console.log(`firstname <== ${value}`)
-  }
-
-  setLastName(value: string): void {
-    this.newPerson.lastName = value;
-  }
-
-  async saveNewPerson(): Promise<void> {
-    console.log(this.newPerson);
-    await this.service.createPerson(this.newPerson).toPromise();
-    await this.loadPeople();
-  }
-
-  async loadPerson(personId: number) {
-    this.detailedPerson = await this.service.getPersonById(personId).toPromise();
-  }
-
-  async deletePerson(personId: number) {
-    if (this.detailedPerson && this.detailedPerson.id! === personId) {
-      this.detailedPerson = undefined;
-    }
-    await this.service.deletePerson(personId).toPromise();
-    await this.loadPeople();
   }
 
 }

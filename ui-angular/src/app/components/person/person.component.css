@@ -1,20 +1,7 @@
-.personContainer {
+.controlButtonContainer {
     display: flex;
-    width: 100%;
-    flex-direction: column;
-}
-
-.permanentAddressContainer {
-    display: flex;
-    flex-direction: column;
-}
-
-.streetInfoContainer {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}  
-.streetInfoContainer mat-form-field {
-    margin-right: 10px;
-    flex: 1 1 45%;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    align-items: flex-start;
+    gap: 1rem;
 }
